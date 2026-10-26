@@ -47,7 +47,7 @@ class QRGeneratorApp:
         save_button.bind("<Enter>", lambda e: save_button.config(bg="#1e66f5"))
         save_button.bind("<Leave>", lambda e: save_button.config(bg="#89b4fa"))
 
-        self.qr_label = tk.Label(root, text="QR Code Preview", fg="grey", bg="#f0f0f0", 
+        self.qr_label = tk.Label(root, text="QR Code Preview", fg="grey", bg="#eff1f5", 
                                  relief="solid", bd=2, width=28, height=14, font=("Arial", 10))
         self.qr_label.pack(pady=20)
 
@@ -70,16 +70,16 @@ class QRGeneratorApp:
         qr_code = qr.QRCode(
             version = None,
             error_correction = qr.constants.ERROR_CORRECT_L,
-            box_size = 10,
-            border = 5,
+            box_size = 12,
+            border = 0,
         )
 
         qr_code.add_data(data)
         qr_code.make(fit=True)
 
-        self.pil_image = qr_code.make_image(fill_color="black", back_color="white").convert("RGB")
+        self.pil_image = qr_code.make_image(fill_color="#4c4f69", back_color="#eff1f5").convert("RGB")
         
-        display_image = self.pil_image.resize((200, 200), Image.Resampling.LANCZOS)
+        display_image = self.pil_image.resize((160, 160), Image.Resampling.LANCZOS)
         self.current_image = ImageTk.PhotoImage(display_image)
 
         self.qr_label.config(image=self.current_image, text="", bg="white", width=225, height=225)
